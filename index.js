@@ -15,13 +15,37 @@ const getArray = () => {
   return numbers;
 };
 
-const optimumsPrime = () => {};
+const optimumsPrime = (number) => {
+  if (number <= 1) return false;
+
+  for (let i = 2; i <= Math.sqrt(number); i++) {
+    if (number % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
+};
 
 const isPrime = () => {
-  for (let i in getArray()) {
+  const numbers = getArray();
+
+  for (let number of numbers) {
+    if (optimumsPrime(number)) {
+      primeNumbers.push(number);
+    }
   }
+
+  console.log("Prime numbers in the range:", primeNumbers);
 };
 
 submitButton.addEventListener("click", () => {
-  isPrime();
+  const rangeMinValue = inputRangeMin.value.trim();
+  const rangeMaxValue = inputRangeMax.value.trim();
+
+  if (rangeMinValue === "" || rangeMaxValue === "") {
+    alert("Enter a valid value for inputMin and inputMax.");
+  } else {
+    isPrime();
+  }
 });
